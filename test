@@ -1,0 +1,19 @@
+
+import dns
+def has_mx_record(domain):
+    try:
+        answers = dns.mxlookup(domain)
+        return len(answers) > 0
+    except dns.Base.ServerError as e:
+        return False
+
+email = "example@example.com"
+parts = email.split("@")
+if len(parts) == 2:
+    domain = parts[1]
+    if has_mx_record(domain):
+        print("Domain has a valid MX record")
+    else:
+        print("Domain does not have a valid MX record")
+else:
+    print("Invalid email address")
